@@ -1,0 +1,13 @@
+body {
+  background-color: black;
+  font-family: monospace;
+  color: white;
+  font-size: 65px;
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
+}
+
+#datestr {
+  padding: 5px;
+  padding-bottom: 0;
+}

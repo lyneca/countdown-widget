@@ -1,5 +1,9 @@
 {
   "name": "hsceebs-wallpaper",
   "version": "0.0.1",
-  "main": "main.js"
+  "main": "main.js",
+  "dependencies": {
+    "moment":"^2.15.1",
+    "jquery": "^3.1.1"
+  }
 }

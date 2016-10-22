@@ -6,25 +6,37 @@
   <script>
     window.$ = require('jquery')
     window.moment = require('moment')
+    window.fs = require('fs')
+    window.ini = require('ini')
+    window.color = require('onecolor')
   </script>
 </head>
 
 <body>
   <div id=datestr>00:00:00:00.00</div>
   <script>
-    refresh()
     $(document).keyup(function(event) {
       if (event.keyCode == 27) {
         window.close();
       }
     });
+    var config = window.ini.parse(window.fs.readFileSync('./config.ini', 'utf-8'))
+    $('body').css('background-color', '#' + config.app.backgroundColor)
+    $('body').css('color', '#' + config.app.textColor)
 
     function r(s) {
       return String('0' + s).slice(-2)
     }
 
+
+    function getColor(s) {
+      s %= (config.app.cycleTime * 100);
+      return color('hsl(' + Math.trunc(s / (config.app.cycleTime * 100) * 360) + ', 100%, 50%)').hex()
+    }
+
     function refresh() {
-      var ms = (moment([2016, 9, 31, 12, 30, 0, 0]).diff(moment()))
+      // var ms = (moment([2016, 9, 31, 12, 30, 0, 0]).diff(moment()))
+      var ms = (moment(config.date).diff(moment()))
       var s = ms / 1000
       var d = parseInt(s / 86400)
       s = s % 86400
@@ -33,6 +45,9 @@
       var m = parseInt(s / 60)
       s = s % 60
       $("#datestr").text(r(d) + ":" + r(h) + ":" + r(m) + ":" + r(Math.trunc(s)) + "." + String(ms).slice(-3, -1))
+      if (config.app.dynamicColor) {
+        $('body').css('color', getColor(String(ms).slice(-5, -1)))
+      }
     }
     setInterval(refresh, 10)
   </script>

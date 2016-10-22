@@ -1,7 +1,10 @@
 {
-  "name": "hsceebs-wallpaper",
-  "version": "0.0.1",
+  "name": "countdown",
+  "version": "0.2.0",
   "main": "main.js",
+  "devDependencies": {
+    "electron": "^1.4.1"
+  },
   "dependencies": {
     "moment":"^2.15.1",
     "jquery": "^3.1.1",
